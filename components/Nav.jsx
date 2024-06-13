@@ -5,9 +5,9 @@ import Image from 'next/image'
 import {signIn, signOut, useSession, getProviders} from 'next-auth/react'
 
 const Nav = () => {
-  const isUserLoggedIn = true;
+  const isUserLoggedIn = false;
   const [providers, setProviders] = useState(null);
-
+  const [toggleDropdown, setToggleDropdown] = useState(false);
   // useEffect(async() => {
   //     const response = await getProviders(providers);
   //     setProviders(response);
@@ -67,16 +67,42 @@ const Nav = () => {
 <div className='sm:hidden flex relative'>
   {isUserLoggedIn ? (
     <div className='flex'>
-         <Link href='/profile' className=''>
       <Image
       src='/assets/images/logo.svg'
       width={37}
       height={37}
+      onClick={()=> setToggleDropdown(prev=>!prev)}
       className='rounded-full'
       alt='profile'
       />
-    </Link>
-    </div>
+  {toggleDropdown && (
+              <div className='dropdown'>
+                <Link
+                  href='/profile'
+                  className='dropdown_link'
+                  onClick={() => setToggleDropdown(false)}
+                >
+                  My Profile
+                </Link>
+                <Link
+                  href='/create-prompt'
+                  className='dropdown_link'
+                  onClick={() => setToggleDropdown(false)}
+                >
+                  Create Prompt
+                </Link>
+                <button
+                  type='button'
+                  onClick={() => {
+                    setToggleDropdown(false);
+                    signOut();
+                  }}
+                  className='mt-5 w-full black_btn'
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}    </div>
 
   ) : (
     <>
