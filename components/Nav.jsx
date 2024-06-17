@@ -5,15 +5,17 @@ import Image from 'next/image'
 import {signIn, signOut, useSession, getProviders} from 'next-auth/react'
 
 const Nav = () => {
-  const isUserLoggedIn = true;
+  const {data : session } = useSession();
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
-  // useEffect(async() => {
-  //     const response = await getProviders(providers);
-  //     setProviders(response);
+  useEffect(() => {
+    const fetchProviders = async () => {
+      const response = await getProviders();
+      setProviders(response);
+    }
+   fetchProviders()
 
-  // }, [])
-
+ }, [])
   
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
