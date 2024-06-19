@@ -6,7 +6,9 @@ import Profile from '@components/profile';
 
 const MyProfile = () => {
     const { data: session} = useSession();
+    const router = useRouter();
     const [prompts, setPrompts] = useState([]);
+
     useEffect(()=>{
         const fetchPrompts = async () => {
           const response = await fetch(`/api/users/${session?.user.id}/prompts`);
@@ -14,14 +16,14 @@ const MyProfile = () => {
           setPrompts(data);
         }
     
-        if(session?.user.id)fetchPrompts();
-      }, [])
+        if(session?.user.id) fetchPrompts();
+      }, [session?.user.id])
 
-    const handleDelete = () => {
+    const handleDelete = async (prompt) => {
 
     }
-    const handleEdit = () => {
-
+    const handleEdit = async (prompt) => {
+        router.push(`/update-prompt?id=${prompt._id}`)
     }
 
   return (
