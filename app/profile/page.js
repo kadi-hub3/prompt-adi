@@ -5,6 +5,17 @@ import {useRouter} from 'next/navigation';
 import Profile from '@components/profile';
 
 const MyProfile = () => {
+    const { data: session} = useSession();
+    const [prompts, setPrompts] = useState([]);
+    useEffect(()=>{
+        const fetchPrompts = async () => {
+          const response = await fetch(`/api/users/${session?.user.id}/prompts`);
+          const data = await response.json();
+          setPrompts(data);
+        }
+    
+        if(session?.user.id)fetchPrompts();
+      }, [])
 
     const handleDelete = () => {
 
@@ -15,9 +26,9 @@ const MyProfile = () => {
 
   return (
     <Profile
-        name='My Profile'
+        name='My'
         desc='Welcome to your personalized profile'
-        data={[]}
+        data={prompts}
         handleEdit={handleEdit}
         handleDelete={handleDelete}
     />
