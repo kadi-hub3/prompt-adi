@@ -19,10 +19,11 @@ const MyProfile = () => {
         if(session?.user.id) fetchPrompts();
       }, [session?.user.id])
 
-    const handleDelete = async (prompt) => {
+      const handleDelete = async (post) => {
+     
+      };
 
-    }
-    const handleEdit = async (prompt) => {
+    const handleEdit = (prompt) => {
         router.push(`/update-prompt?id=${prompt._id}`)
     }
 

@@ -13,7 +13,7 @@ const EditPrompt = () => {
         tag: ''
     });
 
-    const EditPrompt = async (e) => {
+    const editPrompt = async (e) => {
         e.preventDefault();
         setSubmit(true);
 
@@ -47,15 +47,16 @@ const EditPrompt = () => {
                 tag: data.tag
             })
         }
-        if(promptId){ getPromptDetails()};
+        if(promptId){getPromptDetails()};
     }, [promptId])
+
   return (
     <Form 
     type='Edit'
     post={post}
     setPost={setPost}
     submit={submit}
-    handleSubmit={EditPrompt}
+    handleSubmit={editPrompt}
     />
   )
 }
