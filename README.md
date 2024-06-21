@@ -12,3 +12,7 @@ Framework: Next.js
 Styling: Tailwind CSS
 Database: MongoDB, Mongoose
 Authentication: Google Auth0
+
+//Left funcionalities
+Search User or Prompt
+Create Diff Profiles
