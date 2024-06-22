@@ -17,11 +17,26 @@ const PromptCardList = ({data, handleTagClick}) => {
 }
 
 const Feed = () => {
-  const [ searchText, setSearchText] = useState('');
   const [prompts, setPrompts] = useState([]);
-  const handleSearchTextChange = async (e) => {
 
-  }
+
+  // Search states
+  const [searchText, setSearchText] = useState("");
+  const [searchTimeout, setSearchTimeout] = useState(null);
+  const [searchedResults, setSearchedResults] = useState([]);
+
+  const handleSearchChange = (e) => {
+    clearTimeout(searchTimeout);
+    setSearchText(e.target.value);
+
+    // debounce method
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchResult = filterPrompts(e.target.value);
+        setSearchedResults(searchResult);
+      }, 500)
+    );
+  };
 
   useEffect(()=>{
     const fetchPrompts = async () => {
